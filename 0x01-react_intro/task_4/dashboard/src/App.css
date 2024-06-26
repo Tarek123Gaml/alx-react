@@ -1,0 +1,50 @@
+.App {
+  padding: 10px;
+  text-align: center;
+}
+
+.App-header {
+  min-height: 10vh;
+  display: flex;
+  justify-content: left;
+  color: rgb(241 70 77);
+  border-bottom: solid  rgb(241 70 77);
+}
+
+.App-header h1 {
+  margin: auto 0 auto 20px;
+  font-size: 43px;
+
+}
+
+.App-header .App-logo {
+  width: 200px;
+}
+
+.App-body {
+  min-height: 80vh;
+  display: flex;
+  justify-content: left;
+  padding: 10px;
+  font-size: 4vmin;
+  flex-direction: column;
+}
+
+input {
+  margin-right: 20px;
+}
+
+.App-body .form{
+  display: block;
+}
+
+.App-footer {
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 4vmin;
+  border-top: solid  rgb(241 70 77);
+
+}
