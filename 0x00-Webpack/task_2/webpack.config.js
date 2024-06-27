@@ -1,9 +1,11 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 module.exports = {
-  entry: './js/dashboard_main.js',
+  mode: 'production',
+  entry: path.resolve(__dirname, './js/dashboard_main.js'),
+  performance: {
+    maxAssetSize: 1000000,
+  },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
@@ -12,58 +14,21 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          "file-loader",
+          {
+            loader: "image-webpack-loader",
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+            },
+          },
+        ],
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-    }),
-    new ImageMinimizerPlugin({
-      minimizer: {
-        implementation: ImageMinimizerPlugin.imageminMinify,
-        options: {
-          plugins: [
-            ['gifsicle', { interlaced: true }],
-            ['jpegtran', { progressive: true }],
-            ['optipng', { optimizationLevel: 5 }],
-            [
-              'svgo',
-              {
-                plugins: [
-                  {
-                    name: 'preset-default',
-                    params: {
-                      overrides: {
-                        removeViewBox: false,
-                        addAttributesToSVGElement: {
-                          params: {
-                            attributes: [
-                              { xmlns: 'http://www.w3.org/2000/svg' },
-                            ],
-                          },
-                        },
-                      },
-                    },
-                  },
-                ],
-              },
-            ],
-          ],
-        },
-      },
-    }),
-  ],
-  devServer: {
-    static: path.join(__dirname, 'public'),
-    compress: true,
-    port: 9000,
-    open: true,
-  },
-  mode: 'production',
 };
