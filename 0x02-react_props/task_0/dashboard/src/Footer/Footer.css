@@ -1,0 +1,10 @@
+.App-footer {
+    min-height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 4vmin;
+    border-top: solid  rgb(241 70 77);
+  
+  }

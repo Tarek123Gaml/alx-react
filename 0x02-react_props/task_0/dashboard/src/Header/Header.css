@@ -1,0 +1,17 @@
+.App-header {
+    min-height: 10vh;
+    display: flex;
+    justify-content: left;
+    color: rgb(241 70 77);
+    border-bottom: solid  rgb(241 70 77);
+  }
+  
+  .App-header h1 {
+    margin: auto 0 auto 20px;
+    font-size: 43px;
+  
+  }
+  
+  .App-header .App-logo {
+    width: 200px;
+  }  
