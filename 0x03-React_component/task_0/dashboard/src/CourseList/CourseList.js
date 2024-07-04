@@ -1,37 +1,48 @@
-import React from 'react';
-import './CourseList.css';
-import CourseListRow from './CourseListRow';
+import React from "react";
+import CourseListRow from "./CourseListRow";
+import './CourseList.css'
+import  CourseShape  from "./CourseShape";
+import PropType from 'prop-types'
 
-const CourseList = () => {
+
+const CourseList = ({listCourses}) => {
   return (
-    <table className='course-list'>
+    <table id="CourseList">
       <thead>
-        <CourseListRow textFirstCell='Available courses' isHeader={true} />
+        <CourseListRow textFirstCell="Available courses" isHeader={true} />
         <CourseListRow
-          textFirstCell='Course name'
-          textSecondCell='Credit'
+          textFirstCell="Course name"
+          textSecondCell="Credit"
           isHeader={true}
         />
       </thead>
       <tbody>
-        <CourseListRow
-          textFirstCell='ES6'
-          textSecondCell='60'
-          isHeader={false}
-        />
-        <CourseListRow
-          textFirstCell='Webpack'
-          textSecondCell='20'
-          isHeader={false}
-        />
-        <CourseListRow
-          textFirstCell='React'
-          textSecondCell='40'
-          isHeader={false}
-        />
+        {
+          listCourses.length > 0 ? 
+          (<>
+            {
+              
+              listCourses.map((value,index)=>{
+                return (<CourseListRow key={value.id} textFirstCell={value.name} textSecondCell={value.credit} />)
+              })
+            }
+          </>):
+          (<>
+            <CourseList textFirstCell="No course available yet" />
+          </>)
+        }
+        
       </tbody>
     </table>
   );
+};
+
+CourseList.prototype = {
+  listCourses: PropType.arrayOf(CourseShape),
+};
+
+CourseList.defaultProps = {
+  listCourses: [],
 };
 
 export default CourseList;

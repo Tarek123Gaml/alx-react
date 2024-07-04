@@ -1,30 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropType from 'prop-types'
 
-function NotificationItem({ type, html, value }) {
-  let li;
 
-  value
-    ? (li = <li data-notification-type={type}>{value}</li>)
-    : (li = (
-        <li data-notification-type={type} dangerouslySetInnerHTML={html}></li>
-      ));
-
-  return li;
+NotificationItem.PropType = {
+  __html: PropType.shape({
+    html: PropType.string
+  }),
+  type: PropType.string.isRequired,
+  value: PropType.string
 }
 
 NotificationItem.defaultProps = {
-  type: 'default',
-  value: '',
-  html: {},
-};
+  type: "default"
+}
 
-NotificationItem.propTypes = {
-  type: PropTypes.string,
-  value: PropTypes.string,
-  html: PropTypes.shape({
-    __html: PropTypes.string,
-  }),
-};
+function NotificationItem({type, html, value}) {
+  
+  return (
+    <>
+      { type && value ? <li data-notification-type={type}>{value}</li> : null }
+      { html ? <li data-notification-type={type} data-urgent dangerouslySetInnerHTML={{ __html: html }}></li> : null }
+    </>
+    
+  );
+}
 
-export default NotificationItem;
+
+export default NotificationItem

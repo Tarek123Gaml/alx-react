@@ -1,45 +1,55 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
-  devtool: 'inline-source-map',
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve('./dist'),
-  },
-  devServer: {
-    hot: true,
-    contentBase: path.resolve('./dist'),
-    compress: true,
-    port: 3000,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(jpg|png)$/i,
-        use: [
-          'file-loader',
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              bypassOnDebug: true,
-              disable: true,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.jsx?$/i,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
+    mode: 'production',
+    entry: {
+        main: path.resolve(__dirname, './js/dashboard_main.js')
+    }, 
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js'
+    },
+    devServer: {
+        hot: true,
+        static: path.join(__dirname, './public'),
+        compress: true,
+        port: 8564,
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
         },
-      },
-    ],
-  },
+    },
+    devtool: 'inline-source-map',
+    performance: {
+        hints: false,
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: 'babel-loader',
+                },
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"],
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                use: [
+                    'file-loader',
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            bypassOnDebug: true,
+                            disable: true,
+                        },
+                    },
+                ],
+            },
+        ],
+    },
 };
